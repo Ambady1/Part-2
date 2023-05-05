@@ -40,7 +40,6 @@ const Course = ({ course }) => {
 };
 
 const Header = (props) => {
-  console.log(props)
   return (
     <div>
       <h1>{props.course.name}</h1>
@@ -49,10 +48,11 @@ const Header = (props) => {
 }
 
 const Total = (props) => {
+  const total = props.course.parts.reduce((s, p) => s + p.exercises, 0);
   return (
     <div>
       <h2>Number of exercises </h2>
-      <p>{props.course.parts[0].exercises + props.course.parts[1].exercises + props.course.parts[2].exercises + props.course.parts[3].exercises}</p>
+      <p>{total}</p>
     </div>
   )
 }
