@@ -1,40 +1,65 @@
 const App = () => {
-  const course ={
-
-  name:'Half Stack application development',
-   parts : [
+  const courses = [
     {
-      name: "Fundamentals of react",
-      exercises: 10
+      name: 'Half Stack application development',
+      id: 1,
+      parts: [
+        {
+          name: 'Fundamentals of React',
+          exercises: 10,
+          id: 1
+        },
+        {
+          name: 'Using props to pass data',
+          exercises: 7,
+          id: 2
+        },
+        {
+          name: 'State of a component',
+          exercises: 14,
+          id: 3
+        },
+        {
+          name: 'Redux',
+          exercises: 11,
+          id: 4
+        }
+      ]
     },
     {
-      name: "Using props to pass data",
-      exercises: 7
-    },
-    {
-      name: "State of a component",
-      exercises: 14
-    },
-    {
-      name: "Redux",
-      exercises: 11
+      name: 'Node.js',
+      id: 2,
+      parts: [
+        {
+          name: 'Routing',
+          exercises: 3,
+          id: 1
+        },
+        {
+          name: 'Middlewares',
+          exercises: 7,
+          id: 2
+        }
+      ]
     }
   ]
-}
 
   return (
     <div>
-     <Course course={course} />
+      <h1>Web development Curriculum</h1>
+      <Course course={courses[0]} />
+      <Course course={courses[1]} />
     </div>
   )
 
 }
 const Course = ({ course }) => {
+
   return (
     <div>
       <Header course={course} />
       <Content course={course} />
-      <Total course={course}/>
+      <Total course={course} />
     </div>
   );
 };
@@ -42,35 +67,39 @@ const Course = ({ course }) => {
 const Header = (props) => {
   return (
     <div>
-      <h1>{props.course.name}</h1>
+      <h2>{props.course.name}</h2>
     </div>
   )
 }
 
 const Total = (props) => {
-  const total = props.course.parts.reduce((s, p) => s + p.exercises, 0);
   return (
     <div>
-      <h2>Number of exercises </h2>
-      <p>{total}</p>
+      <h3>Sum of exercises</h3>
+      <p> {props.course.parts.reduce((s, p) => s + p.exercises, 0)}</p>
     </div>
   )
+
 }
 
 const Content = (props) => {
+  const parts = props.course.parts.map(part => (
+    <div key={part.id}>
+      <Part part={part.name} exercises={part.exercises} />
+    </div>
+  ));
+
   return (
     <div>
-      <Part part={props.course.parts[0].name} exercises={props.course.parts[0].exercises} />
-      <Part part={props.course.parts[1].name} exercises={props.course.parts[1].exercises} />
-      <Part part={props.course.parts[2].name} exercises={props.course.parts[2].exercises} />
-      <Part part={props.course.parts[3].name} exercises={props.course.parts[3].exercises} />
+      {parts}
     </div>
   );
 };
+
 const Part = (props) => {
   return (
     <div>
-      <h2>{props.part}</h2>
+      <h4>{props.part}</h4>
       <p>{props.exercises}</p>
     </div>
   );
